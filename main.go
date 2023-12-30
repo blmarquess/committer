@@ -2,17 +2,25 @@ package main
 
 import (
 	"bufio"
+	"commiter/modules"
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/blmarques/committer/modules"
 )
 
 func main() {
-	commitType := modules.CreateList("Qual o tipo de commit?", []string{"feat", "fix", "docs", "style", "refactor", "test", "chore", "build", "ci", "perf", "revert"})
-	commit := getInput("Descrição curta", "")
-	res := condition("Adicionar uma descrição longa no commit?", true)
+	options := modules.ListOptions{
+		Items: []string{"feat", "fix", "docs", "style", "refactor", "test", "chore", "build", "ci", "perf", "revert"},
+		Title: "Qual o tipo de commit?",
+	}
+
+	commitType, err := modules.CreateList(options)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		os.Exit(1)
+	}
+	commit := getInput("Descrição curta: ", "")
+	res := condition("Adicionar uma descrição longa no commit?", false)
 	var longDescription string
 	if res {
 		longDescription = getInput("Descrição longa", "")
@@ -23,6 +31,8 @@ func main() {
 		issue = getInput("Issue", "")
 	}
 	// return modules.Commit(commitType, commit, longDescription, issue)
+
+	fmt.Printf("Qual o tipo de commit? %s\n", commitType)
 	commitResult := "git commit -m \"" + "(" + commitType + "):" + commit + "\n\n" + longDescription + "\n\n " + issue + "\""
 	fmt.Printf(commitResult)
 }
@@ -31,7 +41,7 @@ func getInput(label string, def string) string {
 	reader := bufio.NewReader(os.Stdin)
 	var inputs string
 	for {
-		fmt.Fprintf(os.Stderr, "%s (%s) ", label, def)
+		fmt.Fprintf(os.Stderr, "%s", label)
 		inputs, _ = reader.ReadString('\n')
 		inputs = strings.TrimSpace(inputs)
 		if inputs == "" {

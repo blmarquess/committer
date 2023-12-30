@@ -87,7 +87,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m model) View() string {
 	if m.choice != "" {
-		return quitTextStyle.Render(fmt.Sprintf("%s? Sounds good to me.", m.choice))
+		return m.choice
 	}
 	if m.quitting {
 		return quitTextStyle.Render("Not hungry? That’s cool.")
@@ -96,20 +96,20 @@ func (m model) View() string {
 }
 
 type ListOptions struct {
-	items []string
-	title string
+	Items []string
+	Title string
 }
 
-func CreateList(options ListOptions) string {
+func CreateList(options ListOptions) (string, error) {
 	var items []list.Item
-	for _, i := range options.items {
+	for _, i := range options.Items {
 		items = append(items, item(i))
 	}
 
 	const defaultWidth = 20
 
 	l := list.New(items, itemDelegate{}, defaultWidth, listHeight)
-	l.Title = options.title
+	l.Title = options.Title
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
 	l.Styles.Title = titleStyle
@@ -118,10 +118,14 @@ func CreateList(options ListOptions) string {
 
 	m := model{list: l}
 
-	if _, err := tea.NewProgram(m).Run(); err != nil {
+	res, err := tea.NewProgram(m).Run()
+	if err != nil {
 		fmt.Println("Error running program:", err)
 		os.Exit(1)
 	}
-	fmt.Println(m.choice)
-	return m.choice
+	res.View()
+	fmt.Println(l.SelectedItem().FilterValue())
+	fmt.Println(m.list.SelectedItem().FilterValue())
+	la := res.View()
+	return la, err
 }

@@ -1,4 +1,4 @@
-module github.com/blmarquess/commiter
+module commiter
 
 go 1.21.5
 
