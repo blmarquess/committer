@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/blmarquess/commiter/internal/domain/entity"
-	"github.com/blmarquess/commiter/internal/git"
-	"github.com/blmarquess/commiter/internal/util"
+	"github.com/blmarquess/committer/internal/domain/entity"
+	"github.com/blmarquess/committer/internal/git"
+	"github.com/blmarquess/committer/internal/util"
 )
 
 func main() {
