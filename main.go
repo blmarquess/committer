@@ -1,13 +1,16 @@
 package main
 
 import (
-	"commiter/modules"
 	"fmt"
 	"os"
+
+	"github.com/blmarquess/commiter/internal/domain/entity"
+	"github.com/blmarquess/commiter/internal/git"
+	"github.com/blmarquess/commiter/internal/util"
 )
 
 func main() {
-	stageEmpty, err := modules.IsStageEmpty()
+	stageEmpty, err := git.IsStageEmpty()
 	if err != nil {
 		fmt.Println("Error on check stage:", err)
 		os.Exit(1)
@@ -17,24 +20,24 @@ func main() {
 		os.Exit(1)
 	}
 
-	var commit modules.Commit
-	commit.CommitType = modules.GetListWithDesc()
-	commit.ShortDesc = modules.GetInput("Short Description: ", "")
+	var c entity.CommitEntity
+	c.CommitType = util.GetListWithDesc()
+	c.ShortDesc = util.GetInput("Short Description: ", "")
 
-	if modules.Condition("Add scope?", false) {
-		commit.Scope = modules.GetInput("Scope of commit: ", "")
+	if util.Condition("Add scope?", false) {
+		c.Scope = util.GetInput("Scope of commit: ", "")
 	}
 
-	if modules.Condition("Add a long description?", false) {
-		commit.LongDesc = modules.GetInput("Long description: ", "")
+	if util.Condition("Add a long description?", false) {
+		c.LongDesc = util.GetInput("Long description: ", "")
 	}
 
-	if modules.Condition("Add a id of issue? ", false) {
-		commit.Issue = modules.GetInput("Issue number: ", "")
+	if util.Condition("Add a id of issue? ", false) {
+		c.Issue = util.GetInput("Issue number: ", "")
 	}
 
 	os.Stdout.WriteString("\x1b[3;J\x1b[H\x1b[2J") // Clear screen
-	if modules.GitCommit(modules.Formatter(commit)) != nil {
+	if git.Commit(c.Formatter()) != nil {
 		fmt.Println("Erro ao commitar:", err)
 		os.Exit(1)
 	}

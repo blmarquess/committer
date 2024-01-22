@@ -1,4 +1,4 @@
-package modules
+package git
 
 import (
 	"os/exec"
@@ -37,35 +37,11 @@ func GetUntrackedFiles() ([]string, error) {
 	return lines, nil
 }
 
-func GitCommit(message string) error {
+func Commit(message string) error {
 	cmd := exec.Command("git", "commit", "-m", message)
 	err := cmd.Run()
 	if err != nil {
 		return err
 	}
 	return nil
-}
-
-func test() {
-	// if len(untrackedFiles) > 0 {
-	// 	fmt.Println("Arquivos não versionados:")
-	// 	for _, file := range untrackedFiles {
-	// 		fmt.Println(file)
-	// 	}
-	// }
-
-	// stagedFiles, err := modules.GetStagedFiles()
-	// if err != nil {
-	// 	fmt.Println("Erro ao obter arquivos no stage:", err)
-	// 	os.Exit(1)
-	// }
-
-	// if len(stagedFiles) > 0 {
-	// 	fmt.Println("Arquivos no stage:")
-	// 	for _, file := range stagedFiles {
-	// 		fmt.Println(file)
-	// 	}
-	// } else {
-	// 	fmt.Println("Nenhum arquivo no stage encontrado.")
-	// }
 }

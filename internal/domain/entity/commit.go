@@ -1,6 +1,14 @@
-package modules
+package entity
 
-func Formatter(c Commit) string {
+type CommitEntity struct {
+	CommitType string
+	Scope      string
+	ShortDesc  string
+	LongDesc   string
+	Issue      string
+}
+
+func (c CommitEntity) Formatter() string {
 	var commit string
 	commit = commit + c.CommitType
 	if c.Scope != "" {
