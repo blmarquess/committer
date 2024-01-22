@@ -25,23 +25,3 @@ func GetStagedFiles() ([]string, error) {
 	lines := strings.Split(strings.TrimSpace(outputString), "\n")
 	return lines, nil
 }
-
-func GetUntrackedFiles() ([]string, error) {
-	cmd := exec.Command("git", "ls-files", "--others", "--exclude-standard")
-	output, err := cmd.Output()
-	if err != nil {
-		return nil, err
-	}
-	outputString := string(output)
-	lines := strings.Split(strings.TrimSpace(outputString), "\n")
-	return lines, nil
-}
-
-func Commit(message string) error {
-	cmd := exec.Command("git", "commit", "-m", message)
-	err := cmd.Run()
-	if err != nil {
-		return err
-	}
-	return nil
-}
