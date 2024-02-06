@@ -38,7 +38,7 @@ func main() {
 
 	os.Stdout.WriteString("\x1b[3;J\x1b[H\x1b[2J") // Clear screen
 	if git.Commit(c.Formatter()) != nil {
-		fmt.Println("Erro ao commitar:", err)
+		fmt.Println("Error on commit:", err)
 		os.Exit(1)
 	}
 }
