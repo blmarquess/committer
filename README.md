@@ -55,4 +55,8 @@
 
 // format: pode adicionar um padráo para aplicar ao input usando o input como variavel pelo caracter $
 
-<!-- commit test -->
+## TODO
+
+- [ ] gen cli questions by config file
+- [ ] add view with select files to add a staged area
+- [ ] add handler to git errors
