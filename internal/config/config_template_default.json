@@ -6,11 +6,18 @@
             "name": "commit_type",
             "type": "select",
             "options": [
-                { "message": "feat", "value": "feat" },
-                { "message": "feat", "value": "feat" },
-                { "message": "feat", "value": "feat" },
-                { "message": "feat", "value": "feat" },
-                { "message": "feat", "value": "feat" }
+                {"value": "✨feat", "message": "Add new feature"},
+                {"value": "🐞fix", "message": "Fix a bug"},
+                {"value": "🎯test", "message": "Add or update tests"},
+                {"value": "♻refactor", "message": "Code changes that neither fixes a bug nor adds a feature"},
+                {"value": "🎨style", "message": "Code style changes (whitespace, formatting, etc.)"},
+                {"value": "🚧wip", "message": "Work in progress"},
+                {"value": "📚docs", "message": "Update documentation"},
+                {"value": "📦build", "message": "Changes related to build process"},
+                {"value": "♾️ci", "message": "Changes to CI configuration or scripts"},
+                {"value": "⚡perf", "message": "Performance improvements"},
+                {"value": "↩revert", "message": "Reverts a previous commit"},
+                {"value": "🔧chore", "message": "Changes to the build process, auxiliary tools, etc."}
             ]
         },
         {
