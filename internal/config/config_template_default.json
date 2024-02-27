@@ -1,5 +1,5 @@
 {
-    "name": "example",
+    "name": "default",
     "template": "$commit_type ($scope): $commit_message \n\n $commit_long_message \n\n #$issue",
     "steps": [
         {
