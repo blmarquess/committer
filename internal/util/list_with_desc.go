@@ -63,11 +63,18 @@ func (m model) View() string {
 
 func GetListWithDesc() string {
 	items := []list.Item{
-		item{title: "feat", desc: "This is a feature"},
-		item{title: "fix", desc: "This is a fix"},
-		item{title: "docs", desc: "This is a docs"},
-		item{title: "style", desc: "This is a style"},
-		item{title: "refactor", desc: "This is a refactor"},
+		item{title: "✨feat", desc: "Add new feature"},
+		item{title: "🐞fix", desc: "Fix a bug"},
+		item{title: "🎯test", desc: "Add or update tests"},
+		item{title: "♻refactor", desc: "Code changes that neither fixes a bug nor adds a feature"},
+		item{title: "🎨style", desc: "Code style changes (whitespace, formatting, etc.)"},
+		item{title: "🚧wip", desc: "Work in progress"},
+		item{title: "📚docs", desc: "Update documentation"},
+		item{title: "📦build", desc: "Changes related to build process"},
+		item{title: "♾️ci", desc: "Changes to CI configuration or scripts"},
+		item{title: "⚡perf", desc: "Performance improvements"},
+		item{title: "↩revert", desc: "Reverts a previous commit"},
+		item{title: "🔧chore", desc: "Changes to the build process, auxiliary tools, etc."},
 	}
 
 	m := model{list: list.New(items, list.NewDefaultDelegate(), 0, 0)}
