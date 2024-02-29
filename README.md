@@ -51,11 +51,11 @@
 }
 ```
 
-// por padräo sao todos obrigatorios
+// por padrão todos os imputes são obrigatórios se precisar deixar opcional tem que adicionar valor que é opcional
 
-// format: pode adicionar um padráo para aplicar ao input usando o input como variavel pelo caracter $
+// format: pode adicionar um padrão para aplicar ao input usando o input como variável pelo carácter $
 
-## TODO
+## TODO Next steps
 
 - [ ] gen cli questions by config file
 - [ ] add view with select files to add a staged area
