@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/blmarquess/committer/internal/domain/entity"
 	"github.com/blmarquess/committer/internal/git"
@@ -19,20 +21,37 @@ func main() {
 		fmt.Println("Stage is empty, please add files.")
 		os.Exit(1)
 	}
-	items := []util.Item{
-		util.Item{}.New("✨ feat", "Add new feature"),
-		util.Item{}.New("🐞 fix", "Fix a bug"),
-		util.Item{}.New("🧪 test", "Add or update tests"),
-		util.Item{}.New("♻️ refactor", "Code changes that neither fixes a bug nor adds a feature"),
-		util.Item{}.New("🎨 style", "Code style changes (whitespace, formatting, etc.)"),
-		util.Item{}.New("🚧 wip", "Work in progress"),
-		util.Item{}.New("📚 docs", "Update documentation"),
-		util.Item{}.New("📦 build", "Changes related to build process"),
-		util.Item{}.New("♾️ ci", "Changes to CI configuration or scripts"),
-		util.Item{}.New("⚡️ perf", "Performance improvements"),
-		util.Item{}.New("↩ revert", "Reverts a previous commit"),
-		util.Item{}.New("🔧 chore", "Changes to the build process, auxiliary tools, etc."),
-		util.Item{}.New("🗑️ clean", "Removed unused code."),
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println("Erro ao obter o diretório home:", err)
+		return
+	}
+
+	jsonFilePath := filepath.Join(homeDir, ".commiter", "config.json")
+	file, err := os.Open(jsonFilePath)
+	if err != nil {
+		fmt.Println("Erro ao abrir o arquivo:", err)
+		return
+	}
+	defer file.Close()
+
+	var config entity.Configuration
+	if err := json.NewDecoder(file).Decode(&config); err != nil {
+		fmt.Println("Erro ao decodificar o JSON:", err)
+		return
+	}
+
+	var selectSteps []entity.Step
+	for _, step := range config.Steps {
+		if step.Type == "select" {
+			selectSteps = append(selectSteps, step)
+		}
+	}
+	var items []util.Item
+	for _, step := range selectSteps {
+		for _, option := range step.Options {
+			items = append(items, util.Item{}.New(option.Value, option.Message))
+		}
 	}
 
 	var c entity.CommitEntity
