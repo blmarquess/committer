@@ -15,6 +15,9 @@ type Item struct {
 	title, desc string
 }
 
+func (i Item) New(title, desc string) Item {
+	return Item{title, desc}
+}
 func (i Item) Title() string       { return i.title }
 func (i Item) Description() string { return i.desc }
 func (i Item) FilterValue() string { return i.title }
@@ -61,20 +64,10 @@ func (m model) View() string {
 	return docStyle.Render(m.list.View())
 }
 
-func GetListWithDesc() string {
-	items := []list.Item{
-		Item{title: "✨feat", desc: "Add new feature"},
-		Item{title: "🐞fix", desc: "Fix a bug"},
-		Item{title: "🎯test", desc: "Add or update tests"},
-		Item{title: "♻refactor", desc: "Code changes that neither fixes a bug nor adds a feature"},
-		Item{title: "🎨style", desc: "Code style changes (whitespace, formatting, etc.)"},
-		Item{title: "🚧wip", desc: "Work in progress"},
-		Item{title: "📚docs", desc: "Update documentation"},
-		Item{title: "📦build", desc: "Changes related to build process"},
-		Item{title: "♾️ci", desc: "Changes to CI configuration or scripts"},
-		Item{title: "⚡perf", desc: "Performance improvements"},
-		Item{title: "↩revert", desc: "Reverts a previous commit"},
-		Item{title: "🔧chore", desc: "Changes to the build process, auxiliary tools, etc."},
+func GetListWithDesc(items_list []Item) string {
+	var items = []list.Item{}
+	for _, item := range items_list {
+		items = append(items, item)
 	}
 
 	m := model{list: list.New(items, list.NewDefaultDelegate(), 0, 0)}
