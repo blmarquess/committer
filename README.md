@@ -60,3 +60,5 @@
 - [ ] gen cli questions by config file
 - [ ] add view with select files to add a staged area
 - [ ] add handler to git errors
+- [ ] fix readme.md
+- [ ] fix bug config directory
