@@ -11,8 +11,8 @@ Com uma configuração simples e rápida, você poderá garantir que suas mensag
 Para instalar o Go Lang, execute o seguinte comando no terminal:
 
 ```bash
-sudo apt update
-sudo apt install golang-go
+sudo apt update -y
+sudo apt install golang-go -y
 ```
 
 2. Realize o clone do repositório: `git clone git@github.com:blmarquess/committer.git`
